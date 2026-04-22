@@ -8,6 +8,7 @@ on:
   workflow_dispatch:
 jobs:
   Main:
+    runs-on: ubuntu-latest
     - name: Checkout de repositorio
       uses: actions/checkout@v6
     - name: Instalar python
