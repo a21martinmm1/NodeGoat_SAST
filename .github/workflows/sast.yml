@@ -1,0 +1,27 @@
+name: SAST de NodeGOAT
+on:
+  push:
+    branches:
+      - master
+      - develop
+    pull_request:
+  workflow_dispatch:
+jobs:
+  Main:
+    - name: Checkout de repositorio
+      uses: actions/checkout@v6
+    - name: Instalar python
+      uses: actions/setup-python@v6
+      with:
+        python-version: '3.13'
+    - name: Instalar semgrep
+      run: pip install semgrep
+    - name: SAST con configuracion automaticata
+      run: semgrep --config=auto --output=resultado .
+    - name: Mostrar resultado
+      run: cat resultado
+    - name: Subir resultado
+      uses: actions/upload-artifact@v7
+      with:
+        path: ./resultado
+        archive: false
